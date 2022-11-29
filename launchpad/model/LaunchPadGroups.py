@@ -44,12 +44,12 @@ class PotentiometerGroup(LaunchPadItemGroup):
 
     def __init__(self):
         self.commands: dict[Potentiometer, Command] = {
-            Potentiometer.POT1: CMD2(),
-            Potentiometer.POT2: CMD2(),
-            Potentiometer.POT3: CMD2(),
-            Potentiometer.POT4: CMD2(),
-            Potentiometer.POT5: CMD2(),
-            Potentiometer.POT6: CMD2(),
-            Potentiometer.POT7: CMD2(),
-            Potentiometer.POT8: CMD2(),
+            Potentiometer.POT1: SetVolumeCommand(),
+            Potentiometer.POT2: SetVolumeCommand(),
+            Potentiometer.POT3: SetVolumeCommand(),
+            Potentiometer.POT4: SetVolumeCommand(),
+            Potentiometer.POT5: SetVolumeCommand(),
+            Potentiometer.POT6: SetVolumeCommand(),
+            Potentiometer.POT7: SetVolumeCommand(),
+            Potentiometer.POT8: SetVolumeCommand(),
         }
