@@ -13,12 +13,7 @@ class Command(ABC):
 
 
 class SwitchDevice(Command):
-    def __init__(self, **args: dict):
-        # Get the path to the dll
-        #dll_path = next(iter(args.get("dll_path")))
-
-        dll_path = "C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
-
+    def __init__(self, dll_path: str):
         # Check if the dll path exists
         if not os.path.exists(dll_path):
             raise FileNotFoundError("The dll for the device switcher library was not found")

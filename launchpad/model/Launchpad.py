@@ -1,7 +1,6 @@
 import pygame.midi
 
 from launchpad.model.LaunchPadGroups import *
-import yaml
 
 
 class LaunchPad:
@@ -19,21 +18,6 @@ class LaunchPad:
             raise Exception("No MIDI device found")
 
         self.midi_in = pygame.midi.Input(self.device_id)
-
-        # # Read the yml config file
-        # self.cfg_path = "C:/Users/Gjergji/Repos/midi-controller/cfg.yml"
-        # try:
-        #     with open(self.cfg_path, "r") as stream:
-        #         logging.info("Reading configuration file")
-        #         yaml_file = yaml.safe_load(stream)
-        # except FileNotFoundError as e:
-        #     logging.error("Configuration file not found", exc_info=True)
-        #     raise e
-
-        # self.groups: dict[int, LaunchPadItemGroup] = {
-        #     PadGroup.group_code: PadGroup(**yaml_file["Pads"]),
-        #     PotentiometerGroup.group_code: PotentiometerGroup(**yaml_file["Potentiometers"]),
-        # }
 
         self.groups: dict[int, LaunchPadItemGroup] = {
             PadGroup.group_code: PadGroup(),
