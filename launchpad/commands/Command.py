@@ -80,6 +80,22 @@ class SetVolumeCommand(Command):
         logging.debug(f"Volume set to {value} for {sessions[session_idx].Process.name()}")
 
 
+class OpenFolderCommand(Command):
+    def __init__(self, folder_path: str):
+        self.folder_path = folder_path
+
+    def execute(self, **args):
+        # Check if the folder exists
+        if not os.path.exists(self.folder_path):
+            raise FileNotFoundError("The folder path does not exist")
+
+        # Get the value of the event
+        value = args.get("value")
+        # Open the folder if the value is larger than 0
+        if value > 0:
+            os.startfile(self.folder_path)
+
+
 class Cmd1(Command):
     def execute(self, **event: dict):
         print('Pad')
@@ -94,3 +110,8 @@ class CMD2(Command):
         print(event.get("group_code"))
         print(event.get("personal_code"))
         print(event.get("value"))
+
+
+class UnimplementedCommand(Command):
+    def execute(self, **event):
+        logging.info(f"Unimplemented command {str(event)}")

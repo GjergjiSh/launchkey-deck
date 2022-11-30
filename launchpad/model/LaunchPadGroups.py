@@ -17,26 +17,27 @@ class PadGroup(LaunchPadItemGroup):
     group_code = 153
 
     def __init__(self):
-        dll_path = "C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
+        dll_path = r"C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
+
         self.commands: dict[Pads, Command] = {
             # Top row
             Pads.T1: SwitchDevice(dll_path),
-            Pads.T2: SwitchDevice(dll_path),
-            Pads.T3: SwitchDevice(dll_path),
-            Pads.T4: SwitchDevice(dll_path),
-            Pads.T5: SwitchDevice(dll_path),
-            Pads.T6: SwitchDevice(dll_path),
-            Pads.T7: SwitchDevice(dll_path),
-            Pads.T8: SwitchDevice(dll_path),
+            Pads.T2: UnimplementedCommand(),
+            Pads.T3: UnimplementedCommand(),
+            Pads.T4: UnimplementedCommand(),
+            Pads.T5: UnimplementedCommand(),
+            Pads.T6: UnimplementedCommand(),
+            Pads.T7: UnimplementedCommand(),
+            Pads.T8: UnimplementedCommand(),
             # Bottom row
-            Pads.B1: SwitchDevice(dll_path),
-            Pads.B2: SwitchDevice(dll_path),
-            Pads.B3: SwitchDevice(dll_path),
-            Pads.B4: SwitchDevice(dll_path),
-            Pads.B5: SwitchDevice(dll_path),
-            Pads.B6: SwitchDevice(dll_path),
-            Pads.B7: SwitchDevice(dll_path),
-            Pads.B8: SwitchDevice(dll_path),
+            Pads.B1: OpenFolderCommand(r"C:\Users\Gjergji\Repos"),
+            Pads.B2: OpenFolderCommand(r"C:\Users\Gjergji\Desktop"),
+            Pads.B3: UnimplementedCommand(),
+            Pads.B4: UnimplementedCommand(),
+            Pads.B5: UnimplementedCommand(),
+            Pads.B6: UnimplementedCommand(),
+            Pads.B7: UnimplementedCommand(),
+            Pads.B8: UnimplementedCommand(),
         }
 
 

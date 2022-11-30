@@ -45,7 +45,7 @@ class LaunchPad:
         if group_code in self.groups:
             self.groups[group_code].consume_event(**event)
         else:
-            logging.warning(f"Group code {group_code} not found")
+            logging.debug(f"Group code {group_code} not found")
 
     def loop(self, clock_tick: int = 500):
         clock = pygame.time.Clock()
