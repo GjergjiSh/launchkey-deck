@@ -60,6 +60,7 @@ class SetVolumeCommand(Command):
             logging.debug(f"Session: {session.Process.name()}")
 
         # Get the session corresponding to the id of the potentiometer
+        # Values for the potentiometer codes range from 21 to 28 so we subtract 21 to get the index
         personal_code = args.get("personal_code")
         session_idx = personal_code - 21
 
@@ -96,7 +97,7 @@ class OpenFolderCommand(Command):
             os.startfile(self.folder_path)
 
 
-class Cmd1(Command):
+class PadCommand(Command):
     def execute(self, **event: dict):
         print('Pad')
         print(event.get("group_code"))
@@ -104,7 +105,7 @@ class Cmd1(Command):
         print(event.get("value"))
 
 
-class CMD2(Command):
+class PotCommand(Command):
     def execute(self, **event):
         print('Potentiometer')
         print(event.get("group_code"))
