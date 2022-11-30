@@ -5,3 +5,4 @@ venv-*
 *.log
 build
 CMakeFiles
+*.plog
