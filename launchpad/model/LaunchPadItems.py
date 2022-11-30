@@ -29,3 +29,8 @@ class Potentiometer(IntEnum):
     POT6 = 26
     POT7 = 27
     POT8 = 28
+
+
+class PlayRec(IntEnum):
+    PLAY = 115
+    REC = 117

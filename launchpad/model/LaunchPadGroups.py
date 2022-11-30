@@ -1,4 +1,4 @@
-from launchpad.model.LaunchPadItems import Pads, Potentiometer
+from launchpad.model.LaunchPadItems import Pads, Potentiometer, PlayRec
 from launchpad.commands.Command import *
 from enum import IntEnum
 
@@ -17,11 +17,9 @@ class PadGroup(LaunchPadItemGroup):
     group_code = 153
 
     def __init__(self):
-        dll_path = r"C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
-
         self.commands: dict[Pads, Command] = {
             # Top row
-            Pads.T1: SwitchDevice(dll_path),
+            Pads.T1: UnimplementedCommand(),
             Pads.T2: UnimplementedCommand(),
             Pads.T3: UnimplementedCommand(),
             Pads.T4: UnimplementedCommand(),
@@ -54,4 +52,15 @@ class PotentiometerGroup(LaunchPadItemGroup):
             Potentiometer.POT6: SetVolumeCommand(),
             Potentiometer.POT7: SetVolumeCommand(),
             Potentiometer.POT8: SetVolumeCommand(),
+        }
+
+
+class PlayRecGroup(LaunchPadItemGroup):
+    group_code = 191
+
+    def __init__(self):
+        dll_path = r"C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
+        self.commands: dict[PlayRec, Command] = {
+            PlayRec.PLAY: SwitchDevice(dll_path),
+            PlayRec.REC: UnimplementedCommand(),
         }

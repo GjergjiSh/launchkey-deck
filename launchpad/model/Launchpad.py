@@ -22,6 +22,7 @@ class LaunchPad:
         self.groups: dict[int, LaunchPadItemGroup] = {
             PadGroup.group_code: PadGroup(),
             PotentiometerGroup.group_code: PotentiometerGroup(),
+            PlayRecGroup.group_code: PlayRecGroup()
         }
 
         logging.info("Launchpad initialized")
