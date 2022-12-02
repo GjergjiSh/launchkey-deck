@@ -1,10 +1,12 @@
 import argparse
 import sys
 
+from pygame.midi import MidiException
+
 from launchpad.model.Launchpad import *
 
 
-def main():
+def setup():
     # Set up the argument parser
     parser = argparse.ArgumentParser()
 
@@ -30,14 +32,11 @@ def main():
         ]
     )
 
-    # Initialize the launchpad
-    try:
-        launchpad = LaunchPad()
-        status = 0
-    except Exception as e:
-        status = -1
-        logging.error(f"Failed to initialize the launchpad: {e}")
-        sys.exit(status)
+
+def run():
+    status = -1
+    # Wait for the device to be connected
+    launchpad = LaunchPad.wait_for_device_connection()
 
     # Start the main loop
     try:
@@ -48,10 +47,26 @@ def main():
     except RuntimeError as ex:
         logging.error(f"Failed to run command {ex}")
         status = -1
+    except MidiException as ex:
+        logging.error(f"Midi error {ex}")
+        status = -1
+
+    # Rerun if the status is not 0
+    if status != 0:
+        run()
+
+
+def main():
+    setup()
+
+    # Startup
+    #LaunchPad.startup()
+
+    # Run
+    run()
 
     # Deinitialize the launchpad
-    launchpad.deinit()
-    sys.exit(status)
+    LaunchPad.shutdown()
 
 
 if __name__ == "__main__":

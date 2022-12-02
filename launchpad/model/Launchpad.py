@@ -1,21 +1,18 @@
 import pygame.midi
+from pygame.midi import MidiException
+import time
 
 from launchpad.model.LaunchPadGroups import *
 
 
 class LaunchPad:
     def __init__(self) -> None:
-        pygame.midi.init()
-
-        # Check if pygame.midi is initialized
-        if not pygame.midi.get_init():
-            raise Exception("Pygame.midi Failed to initialize initialized")
-
+        # Get the default output device ID
         self.device_id = pygame.midi.get_default_input_id()
 
         # Check if the device is connected
         if self.device_id == -1:
-            raise Exception("No MIDI device found")
+            raise MidiException("No MIDI device found")
 
         self.midi_in = pygame.midi.Input(self.device_id)
 
@@ -26,6 +23,10 @@ class LaunchPad:
         }
 
         logging.info("Launchpad initialized")
+
+    def __del__(self):
+        # Close pygame.midi
+        pygame.midi.quit()
 
     def read_midi_event(self, events_nr: int = 1) -> dict | None:
         midi_events: list[list[list[int] | int]] = self.midi_in.read(events_nr)
@@ -56,5 +57,41 @@ class LaunchPad:
             if event:
                 self.route_event(event)
 
-    def deinit(self):
+    @staticmethod
+    def startup():
+        pygame.midi.init()
+
+        # Check if pygame.midi is initialized
+        if not pygame.midi.get_init():
+            raise Exception("Failed to initialize pygame.midi")
+
+    @staticmethod
+    def get_connected_device_names():
+        connected_devices = []
+        device_count = pygame.midi.get_count()
+        # Get the connected devices
+        for i in range(device_count):
+            (interface, name, is_input, is_output, is_opened) = pygame.midi.get_device_info(i)
+            connected_devices.append(name)
+            print(connected_devices)
+
+        return connected_devices
+
+    @staticmethod
+    def wait_for_device_connection():
+        pygame.midi.init()
+
+        connected_devices = LaunchPad.get_connected_device_names()
+
+        while b'Launchkey Mini MK3 MIDI' not in connected_devices:
+            pygame.midi.quit()
+            pygame.midi.init()
+            connected_devices = LaunchPad.get_connected_device_names()
+            time.sleep(1)
+
+        logging.info("Launchpad connected")
+        return LaunchPad()
+
+    @staticmethod
+    def shutdown():
         pygame.midi.quit()
