@@ -120,6 +120,23 @@ class OpenFolderCommand(Command):
             self.t1 = -1
 
 
+class KillProcessCommand(Command):
+    def __init__(self, process_name: str):
+        self.process_name = process_name
+
+    def execute(self, **args):
+        # Get the value of the event
+        value = args.get("value")
+
+        # Kill the process if the button was pressed
+        if value > 0:
+            try:
+                os.system(f"taskkill /f /im {self.process_name}")
+            except WindowsError as e:
+                logging.error(f"Failed to kill the process {self.process_name}", exc_info=True)
+                raise e
+
+
 class PadCommand(Command):
     def execute(self, **event: dict):
         print('Pad')

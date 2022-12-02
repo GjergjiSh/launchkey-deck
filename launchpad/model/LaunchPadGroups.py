@@ -62,5 +62,5 @@ class PlayRecGroup(LaunchPadItemGroup):
         dll_path = r"C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
         self.commands: dict[PlayRec, Command] = {
             PlayRec.PLAY: SwitchDevice(dll_path),
-            PlayRec.REC: UnimplementedCommand(),
+            PlayRec.REC: KillProcessCommand("pythonw.exe"),
         }
