@@ -1,4 +1,4 @@
-from launchpad.model.LaunchPadItems import Pads, Potentiometer, PlayRec
+from launchpad.model.LaunchPadItems import Pads, Potentiometer, PlayRec, Keys
 from launchpad.commands.Command import *
 from enum import IntEnum
 
@@ -61,6 +61,39 @@ class PlayRecGroup(LaunchPadItemGroup):
     def __init__(self):
         dll_path = r"C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
         self.commands: dict[PlayRec, Command] = {
-            PlayRec.PLAY: SwitchDevice(dll_path),
+            PlayRec.PLAY: SwitchDeviceCommand(dll_path),
             PlayRec.REC: KillProcessCommand("pythonw.exe"),
+        }
+
+
+class KeysGroup(LaunchPadItemGroup):
+    group_code = 144
+
+    def __init__(self):
+        self.commands: dict[Keys, Command] = {
+            Keys.K1: UnimplementedCommand(),
+            Keys.K2: UnimplementedCommand(),
+            Keys.K3: UnimplementedCommand(),
+            Keys.K4: UnimplementedCommand(),
+            Keys.K5: UnimplementedCommand(),
+            Keys.K6: UnimplementedCommand(),
+            Keys.K7: UnimplementedCommand(),
+            Keys.K8: UnimplementedCommand(),
+            Keys.K9: UnimplementedCommand(),
+            Keys.K10: UnimplementedCommand(),
+            Keys.K11: UnimplementedCommand(),
+            Keys.K12: UnimplementedCommand(),
+            Keys.K13: UnimplementedCommand(),
+            Keys.K14: UnimplementedCommand(),
+            Keys.K15: UnimplementedCommand(),
+            Keys.K16: UnimplementedCommand(),
+            Keys.K17: UnimplementedCommand(),
+            Keys.K18: UnimplementedCommand(),
+            Keys.K19: UnimplementedCommand(),
+            Keys.K20: UnimplementedCommand(),
+            Keys.K21: UnimplementedCommand(),
+            Keys.K22: UnimplementedCommand(),
+            Keys.K23: UnimplementedCommand(),
+            Keys.K24: UnimplementedCommand(),
+            Keys.K25: UnimplementedCommand(),
         }

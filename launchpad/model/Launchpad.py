@@ -19,11 +19,13 @@ class LaunchPad:
         self.groups: dict[int, LaunchPadItemGroup] = {
             PadGroup.group_code: PadGroup(),
             PotentiometerGroup.group_code: PotentiometerGroup(),
-            PlayRecGroup.group_code: PlayRecGroup()
+            PlayRecGroup.group_code: PlayRecGroup(),
+            KeysGroup.group_code: KeysGroup(),
         }
 
         logging.info("Launchpad initialized")
 
+    # Note: Currently only one event at a time is supported
     def read_midi_event(self, events_nr: int = 1) -> dict | None:
         midi_events: list[list[list[int] | int]] = self.midi_in.read(events_nr)
         if midi_events:

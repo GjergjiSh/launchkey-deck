@@ -13,7 +13,7 @@ class Command(ABC):
         raise NotImplementedError
 
 
-class SwitchDevice(Command):
+class SwitchDeviceCommand(Command):
     def __init__(self, dll_path: str):
         # Check if the dll path exists
         if not os.path.exists(dll_path):

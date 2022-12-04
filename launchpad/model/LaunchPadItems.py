@@ -34,3 +34,31 @@ class Potentiometer(IntEnum):
 class PlayRec(IntEnum):
     PLAY = 115
     REC = 117
+
+
+class Keys(IntEnum):
+    K1 = 48
+    K2 = 49
+    K3 = 50
+    K4 = 51
+    K5 = 52
+    K6 = 54
+    K7 = 55
+    K8 = 56
+    K9 = 57
+    K10 = 58
+    K11 = 59
+    K12 = 60
+    K13 = 61
+    K14 = 62
+    K15 = 63
+    K16 = 64
+    K17 = 65
+    K18 = 66
+    K19 = 67
+    K20 = 68
+    K21 = 69
+    K22 = 70
+    K23 = 71
+    K24 = 72
+    K25 = 73
