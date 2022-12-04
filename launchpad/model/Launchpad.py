@@ -24,10 +24,6 @@ class LaunchPad:
 
         logging.info("Launchpad initialized")
 
-    def __del__(self):
-        # Close pygame.midi
-        pygame.midi.quit()
-
     def read_midi_event(self, events_nr: int = 1) -> dict | None:
         midi_events: list[list[list[int] | int]] = self.midi_in.read(events_nr)
         if midi_events:
@@ -66,32 +62,31 @@ class LaunchPad:
             raise Exception("Failed to initialize pygame.midi")
 
     @staticmethod
-    def get_connected_device_names():
+    def get_connected_device_names() -> list[str]:
         connected_devices = []
         device_count = pygame.midi.get_count()
-        # Get the connected devices
+
         for i in range(device_count):
             (interface, name, is_input, is_output, is_opened) = pygame.midi.get_device_info(i)
             connected_devices.append(name)
-            print(connected_devices)
 
         return connected_devices
 
     @staticmethod
-    def wait_for_device_connection():
-        pygame.midi.init()
+    def open(device_name: bytes):
+        connected_device_names = LaunchPad.get_connected_device_names()
 
-        connected_devices = LaunchPad.get_connected_device_names()
-
-        while b'Launchkey Mini MK3 MIDI' not in connected_devices:
+        while device_name not in connected_device_names:
+            # Reinitialize pygame.midi to get the latest connected devices
             pygame.midi.quit()
             pygame.midi.init()
-            connected_devices = LaunchPad.get_connected_device_names()
+            connected_device_names = LaunchPad.get_connected_device_names()
             time.sleep(1)
 
-        logging.info("Launchpad connected")
+        logging.info(f"{device_name} connected")
         return LaunchPad()
 
     @staticmethod
     def shutdown():
         pygame.midi.quit()
+        logging.info("Launchpad disconnected")

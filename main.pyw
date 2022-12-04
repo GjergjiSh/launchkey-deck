@@ -1,9 +1,8 @@
 import argparse
-import sys
 
 from pygame.midi import MidiException
-
-from launchpad.model.Launchpad import *
+from launchpad.model.Launchpad import LaunchPad
+import logging
 
 
 def setup():
@@ -33,10 +32,21 @@ def setup():
     )
 
 
-def run():
-    status = -1
+def open_launchpad(launchpad_name: bytes = b'Launchkey Mini MK3 MIDI'):
+    # Init pygame.midi
+    try:
+        LaunchPad.startup()
+    except MidiException as e:
+        logging.error(e)
+
     # Wait for the device to be connected
-    launchpad = LaunchPad.wait_for_device_connection()
+    launchpad = LaunchPad.open(launchpad_name)
+
+    return launchpad
+
+
+def run(launchpad: LaunchPad):
+    status = -1
 
     # Start the main loop
     try:
@@ -45,27 +55,18 @@ def run():
         logging.info("Exiting...")
         status = 0
     except RuntimeError as ex:
-        logging.error(f"Failed to run command {ex}")
-        status = -1
-    except MidiException as ex:
-        logging.error(f"Midi error {ex}")
+        logging.error(f"Error occurred when processing the launchpad input {ex}")
         status = -1
 
     # Rerun if the status is not 0
     if status != 0:
-        run()
+        run(launchpad)
 
 
 def main():
     setup()
-
-    # Startup
-    #LaunchPad.startup()
-
-    # Run
-    run()
-
-    # Deinitialize the launchpad
+    launchpad = open_launchpad()
+    run(launchpad)
     LaunchPad.shutdown()
 
 
