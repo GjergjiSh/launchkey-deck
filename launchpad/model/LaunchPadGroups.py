@@ -23,7 +23,8 @@ class PadGroup(LaunchPadItemGroup):
 
         for pad in pad_config:
             self.commands.update(
-                {pad.get("code"): create_command(pad.get("command"), **pad)}
+                {pad.get("code"): create_command(
+                    pad.get("command"), **pad)}
             )
 
 
@@ -32,21 +33,12 @@ class PotentiometerGroup(LaunchPadItemGroup):
     group_code = 176
 
     def __init__(self, potentiometer_config: dict):
-
-        self.commands: dict[int, Command] = {
-            # Potentiometer.POT1: SetVolumeCommand(),
-            # Potentiometer.POT2: SetVolumeCommand(),
-            # Potentiometer.POT3: SetVolumeCommand(),
-            # Potentiometer.POT4: SetVolumeCommand(),
-            # Potentiometer.POT5: SetVolumeCommand(),
-            # Potentiometer.POT6: SetVolumeCommand(),
-            # Potentiometer.POT7: SetVolumeCommand(),
-            # Potentiometer.POT8: SetVolumeCommand(),
-        }
-
+        self.commands: dict[int, Command] = dict()
         for potentiometer in potentiometer_config:
             self.commands.update(
-                {potentiometer.get("code"): create_command(potentiometer.get("command"), **potentiometer)}
+                {potentiometer.get("code"): create_command(
+                    potentiometer.get("command"), **potentiometer
+                )}
             )
 
 
@@ -54,15 +46,11 @@ class PlayRecGroup(LaunchPadItemGroup):
     group_code = 191
 
     def __init__(self, play_rec_config: dict):
-        #dll_path = r"C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
-        self.commands: dict[PlayRec, Command] = {
-            # PlayRec.PLAY: SwitchDeviceCommand(dll_path),
-            # PlayRec.REC: KillProcessCommand("pythonw.exe"),
-        }
-
+        self.commands: dict[PlayRec, Command] = dict()
         for play_rec in play_rec_config:
             self.commands.update(
-                {play_rec.get("code"): create_command(play_rec.get("command"), **play_rec)}
+                {play_rec.get("code"): create_command(
+                    play_rec.get("command"), **play_rec)}
             )
 
 

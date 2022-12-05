@@ -15,7 +15,7 @@ class Command(ABC):
 
 class SwitchDeviceCommand(Command):
     def __init__(self, **config: dict):
-        dll_path = config.get("dll_path")
+        dll_path = str(config.get("dll_path"))
 
         # Check if the dll path exists
         if not os.path.exists(dll_path):
@@ -33,12 +33,12 @@ class SwitchDeviceCommand(Command):
         if self.device_switcher.init() != 0:
             raise Exception("Failed to initialize the device switcher library")
 
-        # Unload the DLL when the program exits
-        atexit.register(self.device_switcher.deinit)
+        # # Unload the DLL when the program exits
+        # atexit.register(self.device_switcher.deinit)
 
-    # def __del__(self):
-    #     # Deinitialize the device switcher
-    #     self.device_switcher.deinit()
+    def __del__(self):
+        # Deinitialize the device switcher
+        self.device_switcher.deinit()
 
     def execute(self, **args):
         # Get the value of the event

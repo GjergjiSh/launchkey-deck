@@ -17,14 +17,7 @@ class LaunchPad:
             raise MidiException("No MIDI device found")
 
         self.midi_in = pygame.midi.Input(self.device_id)
-
-        self.groups: dict[int, LaunchPadItemGroup] = {
-            # PadGroup.group_code: PadGroup(),
-            # PotentiometerGroup.group_code: PotentiometerGroup(),
-            # PlayRecGroup.group_code: PlayRecGroup(),
-            # KeysGroup.group_code: KeysGroup(),
-        }
-
+        self.groups: dict[int, LaunchPadItemGroup] = dict()
         logging.info("Launchpad initialized")
 
     def register_groups(self, config_file: str):
@@ -39,13 +32,11 @@ class LaunchPad:
             logging.error("Failed to parse config file", exc_info=True)
             raise e
 
-        groups = {
+        self.groups.update({
             PadGroup.group_code: PadGroup(config_parser.get_pads_config()),
             PotentiometerGroup.group_code: PotentiometerGroup(config_parser.get_potentiometers_config()),
             PlayRecGroup.group_code: PlayRecGroup(config_parser.get_play_rec_config()),
-        }
-
-        self.groups.update(groups)
+        })
 
     # Note: Currently only one event at a time is supported
     def read_midi_event(self, events_nr: int = 1) -> dict | None:
