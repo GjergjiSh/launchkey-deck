@@ -1,7 +1,7 @@
 from enum import IntEnum
 
 
-class Pads(IntEnum):
+class Pad(IntEnum):
     T1 = 40
     T2 = 41
     T3 = 42

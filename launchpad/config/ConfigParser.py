@@ -26,3 +26,6 @@ class ConfigParser:
 
     def get_play_rec_config(self) -> dict:
         return self.config.get("play_rec")
+
+    def get_keys_config(self) -> dict:
+        return self.config.get("keys")

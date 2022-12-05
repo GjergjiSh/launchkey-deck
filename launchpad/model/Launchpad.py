@@ -21,8 +21,10 @@ class LaunchPad:
         logging.info("Launchpad initialized")
 
     def register_groups(self, config_file: str):
+        # Create the config parser instance
         config_parser = ConfigParser(config_file)
 
+        # Parse the config file
         try:
             config_parser.load_config()
         except FileNotFoundError as e:
@@ -32,10 +34,12 @@ class LaunchPad:
             logging.error("Failed to parse config file", exc_info=True)
             raise e
 
+        # Register the groups
         self.groups.update({
             PadGroup.group_code: PadGroup(config_parser.get_pads_config()),
             PotentiometerGroup.group_code: PotentiometerGroup(config_parser.get_potentiometers_config()),
             PlayRecGroup.group_code: PlayRecGroup(config_parser.get_play_rec_config()),
+            KeysGroup.group_code: KeysGroup(config_parser.get_keys_config())
         })
 
     # Note: Currently only one event at a time is supported
