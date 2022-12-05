@@ -1,0 +1,42 @@
+pads:
+  - code: 36
+    command: "OpenFolderCommand"
+    folder_path: "C:/Users/Gjergji/Desktop"
+
+  - code: 37
+    command: "OpenFolderCommand"
+    folder_path: "C:/Users/Gjergji/Repos"
+
+potentiometers:
+  - code: 21
+    command: "SetVolumeCommand"
+
+  - code: 22
+    command: "SetVolumeCommand"
+
+  - code: 23
+    command: "SetVolumeCommand"
+
+  - code: 24
+    command: "SetVolumeCommand"
+
+  - code: 25
+    command: "SetVolumeCommand"
+
+  - code: 26
+    command: "SetVolumeCommand"
+
+  - code: 27
+    command: "SetVolumeCommand"
+
+  - code: 28
+    command: "SetVolumeCommand"
+
+play_rec:
+  - code: 115
+    command: "SwitchDeviceCommand"
+    dll_path: "C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
+
+  - code: 117
+    command: "KillProcessCommand"
+    process_name: "pythonw.exe"

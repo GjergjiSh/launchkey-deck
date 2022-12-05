@@ -14,7 +14,9 @@ class Command(ABC):
 
 
 class SwitchDeviceCommand(Command):
-    def __init__(self, dll_path: str):
+    def __init__(self, **config: dict):
+        dll_path = config.get("dll_path")
+
         # Check if the dll path exists
         if not os.path.exists(dll_path):
             raise FileNotFoundError("The dll for the device switcher library was not found")
@@ -34,6 +36,10 @@ class SwitchDeviceCommand(Command):
         # Unload the DLL when the program exits
         atexit.register(self.device_switcher.deinit)
 
+    # def __del__(self):
+    #     # Deinitialize the device switcher
+    #     self.device_switcher.deinit()
+
     def execute(self, **args):
         # Get the value of the event
         value = args.get("value")
@@ -44,7 +50,7 @@ class SwitchDeviceCommand(Command):
 
 
 class SetVolumeCommand(Command):
-    def __init__(self, **args: dict):
+    def __init__(self, **config: dict):
         pass
 
     def execute(self, **args):
@@ -61,7 +67,8 @@ class SetVolumeCommand(Command):
             logging.debug(f"Session: {session.Process.name()}")
 
         # Get the session corresponding to the id of the potentiometer
-        # Values for the potentiometer codes range from 21 to 28, so we subtract 21 to get the index
+        # Values for the potentiometer codes range from 21 to 28,
+        # so we subtract 21 to get the index
         personal_code = args.get("personal_code")
         session_idx = personal_code - 21
 
@@ -83,8 +90,8 @@ class SetVolumeCommand(Command):
 
 
 class OpenFolderCommand(Command):
-    def __init__(self, folder_path: str):
-        self.folder_path = folder_path
+    def __init__(self, **config: dict):
+        self.folder_path = str(config.get("folder_path"))
         self.t0 = -1
         self.t1 = -1
 
@@ -121,8 +128,8 @@ class OpenFolderCommand(Command):
 
 
 class KillProcessCommand(Command):
-    def __init__(self, process_name: str):
-        self.process_name = process_name
+    def __init__(self, **config: dict):
+        self.process_name = config.get("process_name")
 
     def execute(self, **args):
         # Get the value of the event
@@ -131,7 +138,7 @@ class KillProcessCommand(Command):
         # Kill the process if the button was pressed
         if value > 0:
             try:
-                os.system(f"taskkill /f /im {self.process_name}")
+                os.system(f"TASKKILL /F /IM {self.process_name}")
             except WindowsError as e:
                 logging.error(f"Failed to kill the process {self.process_name}", exc_info=True)
                 raise e
@@ -156,3 +163,13 @@ class PotCommand(Command):
 class UnimplementedCommand(Command):
     def execute(self, **event):
         logging.info(f"Unimplemented command {str(event)}")
+
+
+class TestCommand(Command):
+    def __init__(self, **args: dict):
+        self.message = args.get("message")
+        self.output = args.get("output")
+        #print(f"Test command initialized with {self.message}, {self.output}")
+
+    def execute(self, **event):
+        print(f"Test command: {self.message}, {self.output}")

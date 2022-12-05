@@ -41,6 +41,7 @@ def open_launchpad(launchpad_name: bytes = b'Launchkey Mini MK3 MIDI'):
 
     # Wait for the device to be connected
     launchpad = LaunchPad.open(launchpad_name)
+    launchpad.register_groups("./config.yml")
 
     return launchpad
 
@@ -54,7 +55,7 @@ def run(launchpad: LaunchPad):
     except KeyboardInterrupt:
         logging.info("Exiting...")
         status = 0
-    except RuntimeError as ex:
+    except Exception as ex:
         logging.error(f"Error occurred when processing the launchpad input {ex}")
         status = -1
 

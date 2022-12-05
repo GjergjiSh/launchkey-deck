@@ -1,8 +1,10 @@
 import pygame.midi
 from pygame.midi import MidiException
 import time
+import yaml
 
 from launchpad.model.LaunchPadGroups import *
+from launchpad.config.ConfigParser import ConfigParser
 
 
 class LaunchPad:
@@ -17,13 +19,33 @@ class LaunchPad:
         self.midi_in = pygame.midi.Input(self.device_id)
 
         self.groups: dict[int, LaunchPadItemGroup] = {
-            PadGroup.group_code: PadGroup(),
-            PotentiometerGroup.group_code: PotentiometerGroup(),
-            PlayRecGroup.group_code: PlayRecGroup(),
-            KeysGroup.group_code: KeysGroup(),
+            # PadGroup.group_code: PadGroup(),
+            # PotentiometerGroup.group_code: PotentiometerGroup(),
+            # PlayRecGroup.group_code: PlayRecGroup(),
+            # KeysGroup.group_code: KeysGroup(),
         }
 
         logging.info("Launchpad initialized")
+
+    def register_groups(self, config_file: str):
+        config_parser = ConfigParser(config_file)
+
+        try:
+            config_parser.load_config()
+        except FileNotFoundError as e:
+            logging.error("Config file not found", exc_info=True)
+            raise e
+        except yaml.YAMLError as e:
+            logging.error("Failed to parse config file", exc_info=True)
+            raise e
+
+        groups = {
+            PadGroup.group_code: PadGroup(config_parser.get_pads_config()),
+            PotentiometerGroup.group_code: PotentiometerGroup(config_parser.get_potentiometers_config()),
+            PlayRecGroup.group_code: PlayRecGroup(config_parser.get_play_rec_config()),
+        }
+
+        self.groups.update(groups)
 
     # Note: Currently only one event at a time is supported
     def read_midi_event(self, events_nr: int = 1) -> dict | None:

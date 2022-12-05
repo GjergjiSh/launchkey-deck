@@ -1,4 +1,5 @@
 from launchpad.model.LaunchPadItems import Pads, Potentiometer, PlayRec, Keys
+from launchpad.commands.CommandFactory import create_command
 from launchpad.commands.Command import *
 from enum import IntEnum
 
@@ -7,6 +8,7 @@ class LaunchPadItemGroup:
     group_code = None
     commands: dict[IntEnum, Command]
 
+    # TODO -> Fix warning
     def consume_event(self, **event: dict):
         personal_code = event.get("personal_code")
         if personal_code in self.commands:
@@ -16,54 +18,52 @@ class LaunchPadItemGroup:
 class PadGroup(LaunchPadItemGroup):
     group_code = 153
 
-    def __init__(self):
-        self.commands: dict[Pads, Command] = {
-            # Top row
-            Pads.T1: UnimplementedCommand(),
-            Pads.T2: UnimplementedCommand(),
-            Pads.T3: UnimplementedCommand(),
-            Pads.T4: UnimplementedCommand(),
-            Pads.T5: UnimplementedCommand(),
-            Pads.T6: UnimplementedCommand(),
-            Pads.T7: UnimplementedCommand(),
-            Pads.T8: UnimplementedCommand(),
-            # Bottom row
-            Pads.B1: OpenFolderCommand(r"C:\Users\Gjergji\Repos"),
-            Pads.B2: OpenFolderCommand(r"C:\Users\Gjergji\Desktop"),
-            Pads.B3: UnimplementedCommand(),
-            Pads.B4: UnimplementedCommand(),
-            Pads.B5: UnimplementedCommand(),
-            Pads.B6: UnimplementedCommand(),
-            Pads.B7: UnimplementedCommand(),
-            Pads.B8: UnimplementedCommand(),
-        }
+    def __init__(self, pad_config: dict):
+        self.commands: dict[int, Command | None] = {}
+
+        for pad in pad_config:
+            self.commands.update(
+                {pad.get("code"): create_command(pad.get("command"), **pad)}
+            )
 
 
+# TODO: Fix this -> Index out of range
 class PotentiometerGroup(LaunchPadItemGroup):
     group_code = 176
 
-    def __init__(self):
-        self.commands: dict[Potentiometer, Command] = {
-            Potentiometer.POT1: SetVolumeCommand(),
-            Potentiometer.POT2: SetVolumeCommand(),
-            Potentiometer.POT3: SetVolumeCommand(),
-            Potentiometer.POT4: SetVolumeCommand(),
-            Potentiometer.POT5: SetVolumeCommand(),
-            Potentiometer.POT6: SetVolumeCommand(),
-            Potentiometer.POT7: SetVolumeCommand(),
-            Potentiometer.POT8: SetVolumeCommand(),
+    def __init__(self, potentiometer_config: dict):
+
+        self.commands: dict[int, Command] = {
+            # Potentiometer.POT1: SetVolumeCommand(),
+            # Potentiometer.POT2: SetVolumeCommand(),
+            # Potentiometer.POT3: SetVolumeCommand(),
+            # Potentiometer.POT4: SetVolumeCommand(),
+            # Potentiometer.POT5: SetVolumeCommand(),
+            # Potentiometer.POT6: SetVolumeCommand(),
+            # Potentiometer.POT7: SetVolumeCommand(),
+            # Potentiometer.POT8: SetVolumeCommand(),
         }
+
+        for potentiometer in potentiometer_config:
+            self.commands.update(
+                {potentiometer.get("code"): create_command(potentiometer.get("command"), **potentiometer)}
+            )
 
 
 class PlayRecGroup(LaunchPadItemGroup):
     group_code = 191
 
-    def __init__(self):
-        dll_path = r"C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
+    def __init__(self, play_rec_config: dict):
+        #dll_path = r"C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
         self.commands: dict[PlayRec, Command] = {
-            PlayRec.PLAY: SwitchDeviceCommand(dll_path),
-            PlayRec.REC: KillProcessCommand("pythonw.exe"),
+            # PlayRec.PLAY: SwitchDeviceCommand(dll_path),
+            # PlayRec.REC: KillProcessCommand("pythonw.exe"),
         }
+
+        for play_rec in play_rec_config:
+            self.commands.update(
+                {play_rec.get("code"): create_command(play_rec.get("command"), **play_rec)}
+            )
 
 
 class KeysGroup(LaunchPadItemGroup):
