@@ -9,6 +9,7 @@ def create_command(command_name: str, **args: dict) -> Command:
         "SwitchDeviceCommand": SwitchDeviceCommandFactory(),
         "KillProcessCommand": KillProcessCommandFactory(),
         "OpenFolderCommand": OpenFolderCommandFactory(),
+        "SwitchBackGroundCommand": SwitchBackgroundCommandFactory(),
     }
 
     if command_name in factories:
@@ -46,3 +47,8 @@ class KillProcessCommandFactory(CommandFactory):
 class OpenFolderCommandFactory(CommandFactory):
     def create(self, **args: dict) -> Command:
         return OpenFolderCommand(**args)
+
+
+class SwitchBackgroundCommandFactory(CommandFactory):
+    def create(self, **args: dict) -> Command:
+        return SwitchBackGroundCommand(**args)

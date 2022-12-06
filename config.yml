@@ -7,6 +7,11 @@ pads:
     command: "OpenFolderCommand"
     folder_path: "C:/Users/Gjergji/Repos"
 
+#  - code: 38
+#    command: "SwitchBackGroundCommand"
+#    formal_background_path: "C:/Users/Gjergji/Pictures/Wallpapers/Hintergrund_Teams.png"
+#    casual_background_path: "C:/Users/Gjergji/Pictures/Wallpapers/cyberpunk-2077-video-game-cyborg-girl-with-katana-wallpaper-3440x1440_15.jpg"
+
 potentiometers:
   - code: 21
     command: "SetVolumeCommand"
