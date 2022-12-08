@@ -1,10 +1,10 @@
-import pygame.midi
+from launchpad.model.groups import *
 from pygame.midi import MidiException
+
+import pygame.midi
 import time
 import yaml
-
-from launchpad.model.groups import *
-from launchpad.config.cfg import ConfigParser
+import os
 
 
 class LaunchPad:
@@ -20,13 +20,10 @@ class LaunchPad:
         self.groups: dict[int, LaunchPadItemGroup] = dict()
         logging.info("Launchpad initialized")
 
-    def register_groups(self, config_file: str):
-        # Create the config parser instance
-        config_parser = ConfigParser(config_file)
-
+    def register_groups(self, config_file: str = "config.yml"):
         # Parse the config file
         try:
-            config_parser.load_config()
+            config = LaunchPad.read_config(config_file)
         except FileNotFoundError as e:
             logging.error("Config file not found", exc_info=True)
             raise e
@@ -36,10 +33,10 @@ class LaunchPad:
 
         # Register the groups
         self.groups.update({
-            PadGroup.group_code: PadGroup(config_parser.get_pads_config()),
-            PotentiometerGroup.group_code: PotentiometerGroup(config_parser.get_potentiometers_config()),
-            PlayRecGroup.group_code: PlayRecGroup(config_parser.get_play_rec_config()),
-            KeysGroup.group_code: KeysGroup(config_parser.get_keys_config())
+            PadGroup.group_code: PadGroup(config.get("pads")),
+            PotentiometerGroup.group_code: PotentiometerGroup(config.get("potentiometers")),
+            PlayRecGroup.group_code: PlayRecGroup(config.get("play_rec")),
+            KeysGroup.group_code: KeysGroup(config.get("keys"))
         })
 
     # Note: Currently only one event at a time is supported
@@ -71,6 +68,20 @@ class LaunchPad:
             event = self.read_midi_event()
             if event:
                 self.route_event(event)
+
+    @staticmethod
+    def read_config(config_file) -> dict:
+        # Check if the config file exists
+        if not os.path.exists(config_file):
+            raise FileNotFoundError(f"Config file {config_file} not found")
+
+        with open(config_file, "r") as f:
+            try:
+                config = yaml.safe_load(f)
+            except yaml.YAMLError as e:
+                raise e
+
+        return config
 
     @staticmethod
     def startup():
