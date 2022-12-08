@@ -3,8 +3,8 @@ from pygame.midi import MidiException
 import time
 import yaml
 
-from launchpad.model.LaunchPadGroups import *
-from launchpad.config.ConfigParser import ConfigParser
+from launchpad.model.groups import *
+from launchpad.config.cfg import ConfigParser
 
 
 class LaunchPad:

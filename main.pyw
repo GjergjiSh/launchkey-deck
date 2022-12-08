@@ -1,7 +1,7 @@
 import argparse
 
 from pygame.midi import MidiException
-from launchpad.model.Launchpad import LaunchPad
+from launchpad.model.board import LaunchPad
 import logging
 
 

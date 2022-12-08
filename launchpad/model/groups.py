@@ -1,5 +1,5 @@
-from launchpad.model.LaunchPadItems import PlayRec, Keys, Pad, Potentiometer
-from launchpad.commands.Command import *
+from launchpad.model.items import PlayRec, Keys, Pad, Potentiometer
+from launchpad.commands.cmd import *
 
 
 class LaunchPadItemGroup:

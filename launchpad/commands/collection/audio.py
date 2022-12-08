@@ -1,4 +1,4 @@
-from launchpad.commands.Command import Command
+from launchpad.commands.cmd import Command
 from pycaw.pycaw import AudioUtilities
 
 import logging
