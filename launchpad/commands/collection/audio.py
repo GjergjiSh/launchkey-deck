@@ -5,6 +5,7 @@ import logging
 import os
 import ctypes
 
+
 class SetVolumeCommand(Command):
     def __init__(self, **config: dict):
         pass
