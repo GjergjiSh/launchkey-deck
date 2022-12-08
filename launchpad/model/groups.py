@@ -20,9 +20,8 @@ class PadGroup(LaunchPadItemGroup):
         self.commands: dict[Pad, Command | None] = dict()
 
         for pad in pad_config:
-            self.commands.update({
-                pad.get("code"): create_command(**pad)
-            })
+            item_cmd_grp = {pad.get("code"): create_command(**pad)}
+            self.commands.update(item_cmd_grp)
 
 
 # TODO: Fix this -> Index out of range
@@ -33,9 +32,8 @@ class PotentiometerGroup(LaunchPadItemGroup):
         self.commands: dict[Potentiometer, Command] = dict()
 
         for potentiometer in potentiometer_config:
-            self.commands.update({
-                potentiometer.get("code"): create_command(**potentiometer)
-            })
+            item_cmd_grp = {potentiometer.get("code"): create_command(**potentiometer)}
+            self.commands.update(item_cmd_grp)
 
 
 class PlayRecGroup(LaunchPadItemGroup):
@@ -45,9 +43,8 @@ class PlayRecGroup(LaunchPadItemGroup):
         self.commands: dict[PlayRec, Command] = dict()
 
         for play_rec in play_rec_config:
-            self.commands.update({
-                play_rec.get("code"): create_command(**play_rec)
-            })
+            item_cmd_grp = {play_rec.get("code"): create_command(**play_rec)}
+            self.commands.update(item_cmd_grp)
 
 
 class KeysGroup(LaunchPadItemGroup):
@@ -57,6 +54,5 @@ class KeysGroup(LaunchPadItemGroup):
         self.commands: dict[Keys, Command] = dict()
 
         for key in keys_config:
-            self.commands.update({
-                key.get("code"): create_command(**key)
-                })
+            item_cmd_grp = {key.get("code"): create_command(**key)}
+            self.commands.update(item_cmd_grp)
