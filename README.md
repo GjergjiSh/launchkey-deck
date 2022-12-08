@@ -2,7 +2,7 @@
 
 Run custom commands using a Launchkey Mini MK3 MIDI
 
-![launchpad](.docs/img/launchpad-keys.png)
+![launchpad](.docs/img/launchpad-diagram.png)
 
 ## Installation
 
