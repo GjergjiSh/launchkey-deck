@@ -1,6 +1,7 @@
-from launchpad.model.groups import *
+from launchpad.invokers.groups import *
 from pygame.midi import MidiException
 
+import logging
 import pygame.midi
 import time
 import yaml

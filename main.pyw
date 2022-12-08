@@ -1,8 +1,6 @@
-import argparse
+from launchpad.board import *
 
-from pygame.midi import MidiException
-from launchpad.model.board import LaunchPad
-import logging
+import argparse
 
 
 def setup():

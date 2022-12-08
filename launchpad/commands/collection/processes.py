@@ -4,7 +4,6 @@ import logging
 import os
 
 
-
 class KillProcessCommand(Command):
     def __init__(self, **config: dict):
         self.process_name = config.get("process_name")

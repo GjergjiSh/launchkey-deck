@@ -1,7 +1,7 @@
 from enum import IntEnum
 
 
-class Pad(IntEnum):
+class PadCodes(IntEnum):
     T1 = 40
     T2 = 41
     T3 = 42
@@ -20,7 +20,7 @@ class Pad(IntEnum):
     B8 = 47
 
 
-class Potentiometer(IntEnum):
+class PotentiometerCodes(IntEnum):
     POT1 = 21
     POT2 = 22
     POT3 = 23
@@ -31,12 +31,12 @@ class Potentiometer(IntEnum):
     POT8 = 28
 
 
-class PlayRec(IntEnum):
+class PlayRecCodes(IntEnum):
     PLAY = 115
     REC = 117
 
 
-class Keys(IntEnum):
+class KeyCodes(IntEnum):
     K1 = 48
     K2 = 49
     K3 = 50

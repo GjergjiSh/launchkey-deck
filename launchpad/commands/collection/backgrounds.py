@@ -41,7 +41,7 @@ class SwitchBackGroundCommand(Command):
         # SystemParametersInfo returns TRUE
         # unless there is an error (like when the specified file doesn't exist).
         if not r:
-            raise(ctypes.WinError())
+            raise (ctypes.WinError())
 
         # Switch the mode
         self.formal_mode = not self.formal_mode
