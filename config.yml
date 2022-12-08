@@ -1,53 +1,67 @@
 pads:
   - code: 36
-    command: "OpenFolderCommand"
+    command_name: "OpenFolderCommand"
+    command_module: "folders"
     folder_path: "C:/Users/Gjergji/Desktop"
 
   - code: 37
-    command: "OpenFolderCommand"
+    command_name: "OpenFolderCommand"
+    command_module: "folders"
     folder_path: "C:/Users/Gjergji/Repos"
 
 #  - code: 38
-#    command: "SwitchBackGroundCommand"
+#    command_name: "SwitchBackGroundCommand"
+#    command_module: "backgrounds"
 #    formal_background_path: "C:/Users/Gjergji/Pictures/Wallpapers/Hintergrund_Teams.png"
 #    casual_background_path: "C:/Users/Gjergji/Pictures/Wallpapers/cyberpunk-2077-video-game-cyborg-girl-with-katana-wallpaper-3440x1440_15.jpg"
 
 potentiometers:
   - code: 21
-    command: "SetVolumeCommand"
+    command_name: "SetVolumeCommand"
+    command_module: "audio"
 
   - code: 22
-    command: "SetVolumeCommand"
+    command_name: "SetVolumeCommand"
+    command_module: "audio"
 
   - code: 23
-    command: "SetVolumeCommand"
+    command_name: "SetVolumeCommand"
+    command_module: "audio"
 
   - code: 24
-    command: "SetVolumeCommand"
+    command_name: "SetVolumeCommand"
+    command_module: "audio"
 
   - code: 25
-    command: "SetVolumeCommand"
+    command_name: "SetVolumeCommand"
+    command_module: "audio"
 
   - code: 26
-    command: "SetVolumeCommand"
+    command_name: "SetVolumeCommand"
+    command_module: "audio"
 
   - code: 27
-    command: "SetVolumeCommand"
+    command_name: "SetVolumeCommand"
+    command_module: "audio"
 
   - code: 28
-    command: "SetVolumeCommand"
+    command_name: "SetVolumeCommand"
+    command_module: "audio"
 
 play_rec:
   - code: 115
-    command: "SwitchDeviceCommand"
+    command_name: "SwitchDeviceCommand"
+    command_module: "audio"
     dll_path: "C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
 
   - code: 117
-    command: "KillProcessCommand"
+    command_name: "KillProcessCommand"
+    command_module: "processes"
     process_name: "pythonw.exe"
 
 keys:
   - code: 48
-    command: "TestCommand"
+    command_name: "TestCommand"
+    command_module: "test_command"
     message: "Test Command message"
     output: "Hello World"

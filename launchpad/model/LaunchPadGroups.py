@@ -1,5 +1,4 @@
 from launchpad.model.LaunchPadItems import PlayRec, Keys, Pad, Potentiometer
-from launchpad.commands.CommandFactory import create_command
 from launchpad.commands.Command import *
 
 
@@ -22,8 +21,7 @@ class PadGroup(LaunchPadItemGroup):
 
         for pad in pad_config:
             self.commands.update({
-                pad.get("code"): create_command(
-                    pad.get("command"), **pad)
+                pad.get("code"): create_command(**pad)
             })
 
 
@@ -36,9 +34,8 @@ class PotentiometerGroup(LaunchPadItemGroup):
 
         for potentiometer in potentiometer_config:
             self.commands.update({
-                potentiometer.get("code"): create_command(
-                    potentiometer.get("command"), **potentiometer
-                )})
+                potentiometer.get("code"): create_command(**potentiometer)
+            })
 
 
 class PlayRecGroup(LaunchPadItemGroup):
@@ -49,8 +46,7 @@ class PlayRecGroup(LaunchPadItemGroup):
 
         for play_rec in play_rec_config:
             self.commands.update({
-                play_rec.get("code"): create_command(
-                    play_rec.get("command"), **play_rec)
+                play_rec.get("code"): create_command(**play_rec)
             })
 
 
@@ -62,34 +58,5 @@ class KeysGroup(LaunchPadItemGroup):
 
         for key in keys_config:
             self.commands.update({
-                key.get("code"): create_command(
-                    key.get("command"), **key)
+                key.get("code"): create_command(**key)
                 })
-
-        # {
-        #     Keys.K1: UnimplementedCommand(),
-        #     Keys.K2: UnimplementedCommand(),
-        #     Keys.K3: UnimplementedCommand(),
-        #     Keys.K4: UnimplementedCommand(),
-        #     Keys.K5: UnimplementedCommand(),
-        #     Keys.K6: UnimplementedCommand(),
-        #     Keys.K7: UnimplementedCommand(),
-        #     Keys.K8: UnimplementedCommand(),
-        #     Keys.K9: UnimplementedCommand(),
-        #     Keys.K10: UnimplementedCommand(),
-        #     Keys.K11: UnimplementedCommand(),
-        #     Keys.K12: UnimplementedCommand(),
-        #     Keys.K13: UnimplementedCommand(),
-        #     Keys.K14: UnimplementedCommand(),
-        #     Keys.K15: UnimplementedCommand(),
-        #     Keys.K16: UnimplementedCommand(),
-        #     Keys.K17: UnimplementedCommand(),
-        #     Keys.K18: UnimplementedCommand(),
-        #     Keys.K19: UnimplementedCommand(),
-        #     Keys.K20: UnimplementedCommand(),
-        #     Keys.K21: UnimplementedCommand(),
-        #     Keys.K22: UnimplementedCommand(),
-        #     Keys.K23: UnimplementedCommand(),
-        #     Keys.K24: UnimplementedCommand(),
-        #     Keys.K25: UnimplementedCommand(),
-        # }
