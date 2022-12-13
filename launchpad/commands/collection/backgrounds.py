@@ -1,8 +1,8 @@
-from launchpad.commands.cmd import Command
-
 import ctypes
-import struct
 import os
+import struct
+
+from launchpad.commands.cmd import Command
 
 
 class SwitchBackGroundCommand(Command):

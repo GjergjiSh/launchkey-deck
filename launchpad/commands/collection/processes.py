@@ -1,7 +1,7 @@
-from launchpad.commands.cmd import Command
-
 import logging
 import os
+
+from launchpad.commands.cmd import Command
 
 
 class KillProcessCommand(Command):

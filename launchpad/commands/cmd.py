@@ -1,6 +1,5 @@
-from abc import ABC, abstractmethod
-
 import importlib
+from abc import ABC, abstractmethod
 
 
 class Command(ABC):

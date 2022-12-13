@@ -1,9 +1,8 @@
+import argparse
 import os
 from argparse import Namespace
 
 import yaml
-import argparse
-import logging
 
 
 def read_config(config_file) -> dict:
@@ -32,18 +31,3 @@ def init_args() -> Namespace:
         help="Loglevel [0,5]")
 
     return parser.parse_args()
-
-
-def init_logging(args) -> None:
-    # Set up logging
-    filename = "%slog" % __file__[:-2]
-    log_format = "{asctime} {levelname:<8} {message}"
-    logging.basicConfig(
-        level=args.loglevel * 10,
-        format=log_format,
-        style="{",
-        handlers=[
-            logging.FileHandler(filename),
-            logging.StreamHandler()
-        ]
-    )

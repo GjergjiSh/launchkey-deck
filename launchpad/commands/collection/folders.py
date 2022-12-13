@@ -1,7 +1,7 @@
-from launchpad.commands.cmd import Command
-
 import datetime
 import os
+
+from launchpad.commands.cmd import Command
 
 
 class OpenFolderCommand(Command):

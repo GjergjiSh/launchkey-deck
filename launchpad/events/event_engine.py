@@ -1,8 +1,7 @@
-from pygame.midi import MidiException
-
 import logging
 
 import pygame.midi
+from pygame.midi import MidiException
 
 
 class EventEngine:
