@@ -52,7 +52,7 @@ play_rec:
   - code: 115
     command_name: "SwitchDeviceCommand"
     command_module: "audio"
-    dll_path: "C:/Users/Gjergji/Repos/midi-controller/device-switcher/build/Release/OutputDeviceSwitcher.dll"
+    dll_path: "launchpad/commands/lib/device-switcher/build/Release/OutputDeviceSwitcher.dll"
 
   - code: 117
     command_name: "KillProcessCommand"
