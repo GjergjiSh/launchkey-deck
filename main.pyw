@@ -1,6 +1,6 @@
 from launchpad.board import *
-
-import argparse
+from launchpad.events.event_engine import *
+from launchpad.common.utils import *
 
 
 def setup():
@@ -30,43 +30,72 @@ def setup():
     )
 
 
-def open_launchpad(launchpad_name: bytes = b'Launchkey Mini MK3 MIDI'):
-    # Init pygame.midi
-    try:
-        LaunchPad.startup()
-    except MidiException as e:
-        logging.error(e)
-
-    # Wait for the device to be connected
-    launchpad = LaunchPad.open(launchpad_name)
-    launchpad.register_groups("./config.yml")
-
-    return launchpad
+# def open_launchpad(launchpad_name: bytes = b'Launchkey Mini MK3 MIDI'):
+#     # Init pygame.midi
+#     try:
+#         #startup()
+#         launchpad = LaunchPad.open(launchpad_name)
+#         launchpad.register_groups("./config.yml")
+#         return launchpad
+#     except MidiException as e:
+#         logging.error(e, exc_info=True)
 
 
-def run(launchpad: LaunchPad):
-    status = -1
-
-    # Start the main loop
-    try:
-        launchpad.loop()
-    except KeyboardInterrupt:
-        logging.info("Exiting...")
-        status = 0
-    except Exception as ex:
-        logging.error(f"Error occurred when processing the launchpad input {ex}")
-        status = -1
-
-    # Rerun if the status is not 0
-    if status != 0:
-        run(launchpad)
+# def run(launchpad: LaunchPad):
+#     status = -1
+#
+#     # Start the main loop
+#     try:
+#         launchpad.loop()
+#     except KeyboardInterrupt:
+#         logging.info("Exiting...")
+#         status = 0
+#     except Exception as ex:
+#         logging.error(f"Error occurred when processing the launchpad input {ex}")
+#         status = -1
+#
+#     # Rerun if the status is not 0
+#     if status != 0:
+#         run(launchpad)
 
 
 def main():
-    setup()
-    launchpad = open_launchpad()
-    run(launchpad)
-    LaunchPad.shutdown()
+    args = init_args()
+    init_logging(args)
+
+    event_engine = EventEngine()
+    launchpad = LaunchPad()
+
+    try:
+        cfg = read_config("./config.yml")
+    except Exception as ex:
+        logging.error(ex, exc_info=True)
+        return -1
+
+    launchpad.register_groups(cfg)
+
+    try:
+        event_engine.startup()
+    except Exception as ex:
+        logging.error(ex, exc_info=True)
+
+    while True:
+        try:
+            event = event_engine.get_event()
+            if event:
+                launchpad.process_event(event)
+        except KeyboardInterrupt:
+            logging.info("Exiting...")
+            break
+        # except Exception as ex:
+        #     logging.error(f"Error occurred when processing the launchpad input {ex}")
+        #     break
+
+    event_engine.shutdown()
+    return 0
+
+    # launchpad = open_launchpad()
+    # run(launchpad)
 
 
 if __name__ == "__main__":
