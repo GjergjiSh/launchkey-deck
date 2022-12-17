@@ -9,6 +9,11 @@ pads:
     command_module: "folders"
     folder_path: "C:/Users/Gjergji/Repos"
 
+  - code: 38
+    command_name: "OpenFolderCommand"
+    command_module: "folders"
+    folder_path: "C:/Users/Gjergji/Desktop/smso"
+
 #  - code: 38
 #    command_name: "SwitchBackGroundCommand"
 #    command_module: "backgrounds"
