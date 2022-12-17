@@ -30,4 +30,11 @@ def init_args() -> Namespace:
         default=3,
         help="Loglevel [0,5]")
 
+    parser.add_argument(
+        "-eventrate",
+        metavar="---eventrate",
+        type=int,
+        default=60,
+        help="The number of times per second new events are read and processed")
+
     return parser.parse_args()

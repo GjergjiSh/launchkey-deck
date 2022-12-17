@@ -39,8 +39,13 @@ def main():
     launchpad = LaunchPad()
     launchpad.register_groups(cfg)
 
+    # Limit the event reading and processing rate
+    clock = pygame.time.Clock()
+    event_rate = args.eventrate
+
     # Read and process the events
     while True:
+        clock.tick(event_rate)
         try:
             event = event_engine.get_event()
             if event:
