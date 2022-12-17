@@ -34,7 +34,7 @@ def init_args() -> Namespace:
         "-eventrate",
         metavar="---eventrate",
         type=int,
-        default=60,
+        default=120,
         help="The number of times per second new events are read and processed")
 
     return parser.parse_args()
