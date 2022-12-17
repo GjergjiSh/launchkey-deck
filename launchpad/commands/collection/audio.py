@@ -33,15 +33,19 @@ class SetVolumeCommand(Command):
         logging.debug(f"Potentiometer: {personal_code} - {session_idx}")
 
         # Return if the session index is out of range
+        # if session_idx < 0 or session_idx >= len(sessions):
+        #    raise IndexError("The audio session index is out of range")
+
+        # Check if the session index is out of range
         if session_idx < 0 or session_idx >= len(sessions):
-            raise IndexError("The audio session index is out of range")
+            logging.warning("The audio session index is out of range")
+            return
 
         # Get the interface of the closest session
         closest_session_interface = sessions[session_idx].SimpleAudioVolume
         # Set the volume of the closest session
         value = float(args.get("value")) / 127
         closest_session_interface.SetMasterVolume(value, None)
-
         # Log the volume change and the session name
         logging.debug(f"Volume set to {value} for {sessions[session_idx].Process.name()}")
 
